@@ -1,1 +1,264 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d17">
+<meta name="description" content="Learn Python programming, explore coding commands, practice challenges, and build websites with PyLaunch Learning Hub.">
+<title>PyLaunch — Python Learning Hub</title>
+<style>
+:root{--bg:#0b0d17;--panel:#14192a;--panel2:#1c2339;--line:#303751;--text:#f0f3ff;--muted:#a4aec9;--accent:#8c7cff;--cyan:#52dfd0;--green:#75e0a1;--red:#ff8197}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:radial-gradient(ellipse at top right,#22254a,transparent 45%),var(--bg);color:var(--text);font:15px/1.65 system-ui,Segoe UI,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:var(--cyan)}
+.top{position:sticky;top:0;z-index:10;background:#0b0d17ed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1200px;margin:auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.brand{font-size:21px;font-weight:900;letter-spacing:-1px}.brand span{color:var(--cyan)}
+.navlinks{display:flex;gap:5px;flex-wrap:wrap}
+.navlinks button{border:0;background:transparent;color:var(--muted);padding:8px 10px;border-radius:9px}
+.navlinks button:hover,.navlinks button.active{background:var(--panel2);color:white}
+#menu{display:none}
+main,.footer-inner{max-width:1200px;margin:auto;padding:0 20px}
+.hero{padding:65px 0 35px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(38px,5vw,65px);line-height:1.05;letter-spacing:-2px;margin:14px 0}
+.gradient{background:linear-gradient(90deg,var(--cyan),#a999ff);color:transparent;background-clip:text}
+p{color:var(--muted)}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);padding:10px 14px;border-radius:10px;font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:white}
+.btn:hover{filter:brightness(1.15)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.terminal,.editor,.card{border:1px solid var(--line);background:var(--panel);border-radius:15px;overflow:hidden}
+.termhead,.editorbar{padding:12px 15px;background:#1b2033;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.dots{color:#ff8197;letter-spacing:5px}
+.termcode,textarea,pre{font:14px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace}
+.termcode{padding:20px;white-space:pre-wrap}
+.cyan{color:var(--cyan)}.purple{color:#b6a5ff}.green{color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0 35px}
+.stat{padding:15px;background:#ffffff07;border:1px solid var(--line);border-radius:12px}
+.stat strong{display:block;font-size:23px}.stat span{color:var(--muted);font-size:13px}
+section{padding:32px 0 40px;scroll-margin-top:85px}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:19px}
+h2{font-size:28px;letter-spacing:-.7px;margin:0}
+.sectionhead p{margin:4px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{padding:18px}.card h3{margin:7px 0}.card p{margin:4px 0 15px}
+.icon{font-size:25px;width:45px;height:45px;display:grid;place-items:center;background:#8c7cff20;border-radius:12px}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:2px 8px;font-size:11px;color:var(--muted);margin:3px}
+.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,.7fr);gap:15px}
+textarea{width:100%;min-height:300px;resize:vertical;background:#090c14;color:#e8eaff;border:0;padding:17px;outline:none;tab-size:4}
+.output{padding:13px 17px;min-height:65px;border-top:1px solid var(--line);white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.6 ui-monospace,monospace;color:var(--green)}
+.output.error{color:var(--red)}
+.field{width:100%;background:#0c1020;border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--text)}
+select.field{width:auto}
+.note{padding:12px;background:#8c7cff15;border:1px solid #8c7cff40;border-radius:10px;font-size:13px;color:#d6d0ff}
+.searchrow{display:flex;gap:10px;margin-bottom:14px}.searchrow input{flex:1}
+.commandlist{display:grid;gap:9px}
+.command{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+.command code{color:var(--cyan);overflow-wrap:anywhere}.command p{margin:5px 0 0}
+.lesson{display:flex;gap:12px;align-items:start;background:var(--panel);border:1px solid var(--line);padding:14px;border-radius:11px}
+.lesson input{accent-color:var(--accent);margin-top:6px;width:17px;height:17px}
+.lesson h3{margin:0;font-size:15px}.lesson p{font-size:13px;margin:3px 0}
+.lesson.done{opacity:.6}.lesson.done h3{text-decoration:line-through}
+.progress{height:7px;background:var(--panel2);border-radius:10px;overflow:hidden;margin-top:8px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--accent));width:0}
+.code-sample{background:#090c14;padding:12px;border-radius:9px;overflow:auto;color:var(--cyan);font-size:12px}
+.video-card{padding:0}.video-thumb{padding:25px;text-align:center;font-size:36px;background:linear-gradient(130deg,#29234e,#11444c)}
+.inside{padding:15px}
+.challenge{display:flex;flex-direction:column;align-items:start}
+.challenge .hint{background:#090c14;padding:10px;border-radius:9px;width:100%}
+.agent{border:1px solid #ff81974d;border-radius:15px;background:linear-gradient(130deg,#251824,#171728);padding:22px;display:flex;gap:18px}
+.status{display:inline-block;background:#431e2b;border:1px solid #8a4054;color:#ff9daf;border-radius:30px;padding:5px 10px;font-size:11px;font-weight:800}
+.status:before{content:"● ";font-size:9px}
+.hidden{display:none!important}
+footer{border-top:1px solid var(--line);padding:25px 0 40px;color:var(--muted);font-size:13px}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:40px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.navlinks{display:none}.navlinks.open{display:flex;position:absolute;top:66px;left:0;right:0;background:#0b0d17;padding:14px;flex-direction:column;border-bottom:1px solid var(--line)}#menu{display:block}.sectionhead{align-items:start;flex-direction:column}}
+@media(max-width:560px){main,.footer-inner{padding:0 14px}.grid{grid-template-columns:1fr}.stats{gap:6px}.stat{padding:10px}.stat strong{font-size:19px}.hero h1{letter-spacing:-1px}.agent{flex-direction:column}.searchrow{flex-direction:column}.nav{padding:12px 14px}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="nav">
+<a href="#home" class="brand">Py<span>Launch</span></a>
+<button id="menu" class="btn" aria-label="Open navigation">☰</button>
+<nav class="navlinks" id="navlinks">
+<button class="active" data-go="home">Home</button>
+<button data-go="editor">Editor</button>
+<button data-go="commands">Commands</button>
+<button data-go="courses">Courses</button>
+<button data-go="webdev">Websites</button>
+<button data-go="videos">Videos</button>
+<button data-go="challenges">Challenges</button>
+<button data-go="agent">AI Agent</button>
+</nav>
+</div>
+</header>
+<main id="home">
+<section class="hero">
+<div>
+<div class="eyebrow">✦ Your coding journey starts here</div>
+<h1>Learn to code.<br><span class="gradient">Build something real.</span></h1>
+<p>A free learning hub for Python, web development, coding practice, useful commands, and beginner-friendly projects.</p>
+<div class="actions"><button class="btn primary" data-go="editor">▶ Start coding</button><button class="btn" data-go="courses">Explore courses →</button></div>
+</div>
+<div class="terminal">
+<div class="termhead"><span class="dots">● ● ●</span><span>hello_world.py</span></div>
+<div class="termcode"><span class="purple">def</span> <span class="cyan">welcome</span>(name):
+    <span class="purple">return</span> <span class="green">f"Hello, {name}!"</span>
+
+message = welcome(<span class="green">"developer"</span>)
+print(message)
+
+<span class="green">▶ Hello, developer!</span></div>
+</div>
+</section>
+<div class="stats">
+<div class="stat"><strong id="commandCount">60+</strong><span>Reference snippets</span></div>
+<div class="stat"><strong>12</strong><span>Learning lessons</span></div>
+<div class="stat"><strong>Free</strong><span>No subscription required</span></div>
+</div>
+
+<section id="features">
+<div class="sectionhead"><div><h2>Your coding toolkit</h2><p>Everything organized in one place.</p></div></div>
+<div class="grid">
+<div class="card"><div class="icon">⌨️</div><h3>Python editor</h3><p>Experiment with beginner code and inspect the output.</p><button class="btn" data-go="editor">Open editor →</button></div>
+<div class="card"><div class="icon">📚</div><h3>Command library</h3><p>Search Python syntax, functions, strings, loops, and lists.</p><button class="btn" data-go="commands">Browse commands →</button></div>
+<div class="card"><div class="icon">🌐</div><h3>Website building</h3><p>Learn HTML, CSS, and JavaScript with small examples.</p><button class="btn" data-go="webdev">Explore web dev →</button></div>
+<div class="card"><div class="icon">🎯</div><h3>Challenges</h3><p>Practice your skills with hints and example solutions.</p><button class="btn" data-go="challenges">Try challenges →</button></div>
+<div class="card"><div class="icon">🎬</div><h3>Video tutorials</h3><p>Find lessons on Python, websites, projects, and GitHub.</p><button class="btn" data-go="videos">Find tutorials →</button></div>
+<div class="card"><div class="icon">🤖</div><h3>AI helper</h3><p>The AI agent is intentionally marked offline right now.</p><button class="btn" data-go="agent">Check status →</button></div>
+</div>
+</section>
+
+<section id="editor">
+<div class="sectionhead"><div><h2>Python playground</h2><p>Choose an example, edit it, and press Run.</p></div><span class="tag">Limited demo interpreter</span></div>
+<div class="layout">
+<div class="editor">
+<div class="editorbar"><select id="exampleSelect" class="field" aria-label="Choose example"><option value="hello">Hello world</option><option value="variables">Variables</option><option value="loop">Loops</option><option value="condition">Conditions</option><option value="list">Lists</option></select><div><button class="btn" id="resetCode">Reset</button> <button class="btn primary" id="runCode">▶ Run</button></div></div>
+<textarea id="codeInput" spellcheck="false" aria-label="Code editor">name = "Coder"
+print("Hello,", name)
+print("Welcome to PyLaunch!")</textarea>
+<div class="output" id="codeOutput">Your output appears here.</div>
+</div>
+<div class="card"><h3>About the playground</h3><p>This self-contained demo supports basic print statements, simple variables, and a few beginner patterns. It is not a complete Python interpreter.</p><div class="note">For full Python support, use Python on your computer or a trusted online Python environment. This page does not upload your code.</div><h3 style="margin-top:20px">Quick tips</h3><p>• Use <code>print()</code> to display values.</p><p>• Put text inside quotation marks.</p><p>• Press Ctrl+Enter to run the demo.</p><button class="btn" id="copyCode">Copy code</button></div>
+</div>
+</section>
+
+<section id="commands">
+<div class="sectionhead"><div><h2>Python command library</h2><p>Search syntax and copy examples into your editor.</p></div></div>
+<div class="searchrow"><input id="commandSearch" class="field" placeholder="Search print, loops, lists, files…" aria-label="Search commands"><select id="commandCategory" class="field" aria-label="Filter commands"><option>All</option><option>Basics</option><option>Strings</option><option>Lists</option><option>Control flow</option><option>Functions</option><option>Dictionaries</option><option>Useful</option><option>Files</option></select></div>
+<div id="commandList" class="commandlist"></div>
+</section>
+
+<section id="courses">
+<div class="sectionhead"><div><h2>Learning roadmap</h2><p>Tick off lessons as you complete them.</p></div><div style="min-width:145px"><span id="progressText" class="muted">0 of 12 complete</span><div class="progress"><span id="progressBar"></span></div></div></div>
+<div class="grid" id="lessonList"></div>
+</section>
+
+<section id="webdev">
+<div class="sectionhead"><div><h2>Website development</h2><p>Structure, style, and interaction — the three building blocks.</p></div></div>
+<div class="grid">
+<div class="card"><div class="icon">🧱</div><span class="tag">Structure</span><h3>HTML</h3><p>Create headings, paragraphs, links, and forms.</p><pre class="code-sample">&lt;h1&gt;My website&lt;/h1&gt;
+&lt;p&gt;Hello, world!&lt;/p&gt;
+&lt;a href="about.html"&gt;About&lt;/a&gt;</pre><button class="btn useSnippet" data-kind="html">Load snippet</button></div>
+<div class="card"><div class="icon">🎨</div><span class="tag">Design</span><h3>CSS</h3><p>Set colors, spacing, layouts, and responsive styles.</p><pre class="code-sample">body {
+  font-family: sans-serif;
+  background: #101321;
+  color: white;
+}</pre><button class="btn useSnippet" data-kind="css">Load snippet</button></div>
+<div class="card"><div class="icon">⚡</div><span class="tag">Interaction</span><h3>JavaScript</h3><p>Respond to clicks and update page content.</p><pre class="code-sample">document.querySelector("h1")
+  .textContent = "It works!";</pre><button class="btn useSnippet" data-kind="js">Load snippet</button></div>
+</div>
+<div class="card" style="margin-top:15px"><h3>Mini website builder</h3><p>Edit the fields to see your preview update.</p><input class="field" id="previewTitle" value="My first website" aria-label="Website title"><input class="field" id="previewMessage" style="margin-top:9px" value="I am learning to build websites!" aria-label="Website message"><div style="margin-top:14px;background:#f3f4ff;color:#20233a;padding:22px;border-radius:12px"><small style="color:#6555cc;font-weight:800">MY WEBSITE</small><h2 id="titlePreview" style="color:#20233a">My first website</h2><p id="messagePreview" style="color:#535970">I am learning to build websites!</p></div></div>
+</section>
+
+<section id="videos">
+<div class="sectionhead"><div><h2>Video learning</h2><p>These links open YouTube search results for tutorials.</p></div></div>
+<div class="grid">
+<div class="card video-card"><div class="video-thumb">🐍 ▶</div><div class="inside"><span class="tag">Beginner</span><h3>Python basics</h3><p>Variables, data types, loops, and functions.</p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=python+beginner+full+course">Find tutorials ↗</a></div></div>
+<div class="card video-card"><div class="video-thumb">🌐 ▶</div><div class="inside"><span class="tag">Web development</span><h3>HTML and CSS</h3><p>Build and style your first website.</p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=HTML+CSS+website+tutorial+beginner">Find tutorials ↗</a></div></div>
+<div class="card video-card"><div class="video-thumb">⚡ ▶</div><div class="inside"><span class="tag">JavaScript</span><h3>Interactive websites</h3><p>Make your buttons and pages interactive.</p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=JavaScript+beginner+course">Find tutorials ↗</a></div></div>
+<div class="card video-card"><div class="video-thumb">🛠️ ▶</div><div class="inside"><span class="tag">Projects</span><h3>Python projects</h3><p>Build useful beginner-friendly projects.</p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=beginner+Python+projects">Find tutorials ↗</a></div></div>
+<div class="card video-card"><div class="video-thumb">📱 ▶</div><div class="inside"><span class="tag">Responsive design</span><h3>Mobile-friendly pages</h3><p>Make websites fit phones and computers.</p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=responsive+web+design+beginner">Find tutorials ↗</a></div></div>
+<div class="card video-card"><div class="video-thumb">🚀 ▶</div><div class="inside"><span class="tag">Publishing</span><h3>GitHub Pages</h3><p>Publish a website for free.</p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=GitHub+Pages+website+tutorial">Find tutorials ↗</a></div></div>
+</div>
+</section>
+
+<section id="challenges">
+<div class="sectionhead"><div><h2>Coding challenges</h2><p>Think first, use the hint when you need help.</p></div></div>
+<div class="grid">
+<div class="card challenge"><span class="tag">Easy</span><h3>1. Say hello</h3><p>Print <code>Hello, Python!</code>.</p><button class="btn hintBtn" data-hint="Use print() and put the text in quotation marks.">Show hint</button><p class="hint hidden"></p><button class="btn solutionBtn" data-code='print("Hello, Python!")'>Load example</button></div>
+<div class="card challenge"><span class="tag">Easy</span><h3>2. Create a variable</h3><p>Make a name variable and print it.</p><button class="btn hintBtn" data-hint='Try name = "Alex" on one line, then print(name).'>Show hint</button><p class="hint hidden"></p><button class="btn solutionBtn" data-code='name = "Alex"\nprint(name)'>Load example</button></div>
+<div class="card challenge"><span class="tag">Medium</span><h3>3. Count to five</h3><p>Use a loop to print numbers 1 through 5.</p><button class="btn hintBtn" data-hint="Try for number in range(1, 6): and indent print(number).">Show hint</button><p class="hint hidden"></p><button class="btn solutionBtn" data-code="for number in range(1, 6):\n    print(number)">Load example</button></div>
+</div>
+</section>
+
+<section id="agent">
+<div class="sectionhead"><div><h2>AI learning agent</h2><p>Designed for coding explanations, questions, and debugging help.</p></div></div>
+<div class="agent"><div class="icon">🤖</div><div><span class="status">SERVICE SHUT DOWN</span><h3 style="font-size:23px;margin:12px 0 5px">PyLaunch AI is offline</h3><p>The AI agent is currently shut down. Chat and AI-generated answers are unavailable. This status is intentional; the page will not pretend an AI connection exists.</p><p>To enable a real agent later, connect a backend server to an AI provider. Never place a secret API key in public HTML or GitHub Pages code.</p><button class="btn" id="whyBackend">Why do I need a backend?</button><p id="backendExplanation" class="hidden">Public website source can be read by visitors. A backend keeps API credentials private, handles requests, and applies usage limits. This demo does not connect to an AI service.</p></div></div>
+</section>
+</main>
+<footer><div class="footer-inner"><strong style="color:var(--text)">PyLaunch</strong> · Learn by building.<p>Free learning resource. This is a static website; progress is saved in this browser where storage is available. Video links open YouTube search results.</p></div></footer>
+<div id="toast" class="hidden" role="status" style="position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#252c48;border:1px solid #454d72;padding:10px 16px;border-radius:10px;z-index:30"></div>
+<script>
+const $=s=>document.querySelector(s);
+function toast(message){const t=$('#toast');t.textContent=message;t.classList.remove('hidden');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.add('hidden'),2200)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});$('#navlinks').classList.remove('open');document.querySelectorAll('[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id))}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+$('#menu').addEventListener('click',()=>$('#navlinks').classList.toggle('open'));
+
+const examples={
+hello:'print("Hello, world!")',
+variables:'name = "Coder"\nage = 13\nprint("Name:", name)\nprint("Age:", age)',
+loop:'for number in range(1, 6):\n    print(number)',
+condition:'score = 10\nif score == 10:\n    print("Perfect score!")',
+list:'languages = ["Python", "HTML", "CSS"]\nprint(languages)\nprint(languages[0])'
+};
+$('#exampleSelect').addEventListener('change',()=>{$('#codeInput').value=examples[$('#exampleSelect').value];$('#codeOutput').textContent='Example loaded. Press Run.';$('#codeOutput').classList.remove('error')});
+$('#resetCode').addEventListener('click',()=>{$('#codeInput').value=examples[$('#exampleSelect').value];$('#codeOutput').textContent='Code reset.';$('#codeOutput').classList.remove('error')});
+
+// A deliberately small, non-evaluating interpreter for beginner examples.
+function runDemo(src){
+const lines=src.split(/\r?\n/),vars={},out=[];let i=0,steps=0;
+function value(expr){expr=expr.trim();if(Object.prototype.hasOwnProperty.call(vars,expr))return vars[expr];if(/^(['"]).*\1$/.test(expr))return expr.slice(1,-1);if(expr==='True')return true;if(expr==='False')return false;if(/^-?\d+(\.\d+)?$/.test(expr))return Number(expr);const m=expr.match(/^(.+?)\s*\+\s*(.+)$/);if(m){const a=value(m[1]),b=value(m[2]);return typeof a==='number'&&typeof b==='number'?a+b:String(a)+String(b)}return expr}
+while(i<lines.length){if(++steps>300)throw Error('Too many lines.');const line=lines[i++];if(!line.trim()||line.trim().startsWith('#'))continue;if(/^\s/.test(line))throw Error('Unexpected indentation at line '+i+'. This demo supports only a small subset of Python.');
+let m;if((m=line.match(/^\s*print\((.*)\)\s*$/))){const args=m[1].split(/,(?![^()]*\))/).map(value);out.push(args.map(String).join(' '))}
+else if((m=line.match(/^\s*([A-Za-z_]\w*)\s*=\s*(.+)$/))){vars[m[1]]=value(m[2])}
+else if((m=line.match(/^\s*for\s+([A-Za-z_]\w*)\s+in\s+range\((\d+)(?:\s*,\s*(\d+))?\):\s*$/))){const start=i,end=i;const from=m[3]===undefined?0:+m[2],to=m[3]===undefined?+m[2]:+m[3];let body=[];while(i<lines.length&&(!lines[i].trim()||/^\s/.test(lines[i]))){if(lines[i].trim())body.push(lines[i].replace(/^\s{1,4}/,''));i++}if(!body.length)throw Error('Add an indented line under the for loop.');for(let n=from;n<to;n++){vars[m[1]]=n;for(const s of body){if(++steps>300)throw Error('Stopped after too many operations.');let p=s.match(/^print\((.*)\)$/);if(p)out.push(p[1].split(/,(?![^()]*\))/).map(value).map(String).join(' '));else{let a=s.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);if(a)vars[a[1]]=value(a[2]);else throw Error('Unsupported loop statement: '+s)}}}}
+else if((m=line.match(/^\s*if\s+(.+?)\s*==\s*(.+):\s*$/))){let body=[];while(i<lines.length&&(!lines[i].trim()||/^\s/.test(lines[i]))){if(lines[i].trim())body.push(lines[i].replace(/^\s{1,4}/,''));i++}if(value(m[1])===value(m[2])){for(const s of body){let p=s.match(/^print\((.*)\)$/);if(p)out.push(p[1].split(/,(?![^()]*\))/).map(value).map(String).join(' '));else throw Error('Unsupported if statement: '+s)}}}
+else throw Error('This demo does not support line '+i+': '+line.trim()+'. Try a supplied example or use a full Python runtime.');
+if(out.length>100)throw Error('Output limit reached.')}
+return out.join('\n')||'(No output. Try adding print(...).)'
+}
+$('#runCode').addEventListener('click',()=>{const o=$('#codeOutput');try{o.textContent=runDemo($('#codeInput').value);o.classList.remove('error')}catch(e){o.textContent='Demo limitation: '+e.message;o.classList.add('error')}});
+$('#codeInput').addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();e.target.setRangeText('    ',e.target.selectionStart,e.target.selectionEnd,'end')}if((e.ctrlKey||e.metaKey)&&e.key==='Enter')$('#runCode').click()});
+async function copyText(text){try{await navigator.clipboard.writeText(text);toast('Copied!')}catch{const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Copied!')}catch{toast('Select and copy the text manually.')}t.remove()}}
+$('#copyCode').addEventListener('click',()=>copyText($('#codeInput').value));
+
+const commands=[
+['Basics','print("Hello!")','Displays output.'],['Basics','name = "Alex"','Creates a variable.'],['Basics','age = 13','Stores an integer.'],['Basics','type(value)','Checks a value’s type.'],['Basics','len(items)','Gets the length of a sequence.'],['Basics','str(123)','Converts a value to text.'],['Basics','int("42")','Converts suitable text to an integer.'],['Basics','float("3.14")','Converts suitable text to a decimal.'],['Basics','input("Name: ")','Reads user input in a real Python program.'],['Basics','help(str)','Opens Python help.'],['Strings','text.lower()','Makes text lowercase.'],['Strings','text.upper()','Makes text uppercase.'],['Strings','text.strip()','Removes whitespace from the ends.'],['Strings','text.replace("a", "b")','Replaces text.'],['Strings','text.split(",")','Splits text into a list.'],['Strings','" ".join(words)','Joins strings with spaces.'],['Strings','f"Hello, {name}"','Inserts a variable into text.'],['Strings','text.startswith("Py")','Checks a string prefix.'],['Lists','items = ["a", "b"]','Creates a list.'],['Lists','items.append("c")','Adds an item.'],['Lists','items.extend(other)','Adds multiple items.'],['Lists','items.insert(0, "x")','Inserts an item at an index.'],['Lists','items.remove("a")','Removes the first matching item.'],['Lists','items.pop()','Removes and returns the last item.'],['Lists','items.sort()','Sorts a list in place.'],['Lists','sorted(items)','Returns a sorted list.'],['Lists','items[0]','Gets the first item.'],['Lists','items[-1]','Gets the last item.'],['Lists','items[1:3]','Gets a slice of a list.'],['Lists','[x * 2 for x in numbers]','Creates a list using a comprehension.'],['Control flow','if score >= 10:','Starts a conditional block. Add an indented body.'],['Control flow','elif score > 0:','Checks another condition.'],['Control flow','else:','Runs when earlier conditions fail.'],['Control flow','for item in items:','Loops over items. Add an indented body.'],['Control flow','for i in range(5):','Loops through numbers 0–4.'],['Control flow','while condition:','Repeats while a condition is true.'],['Control flow','break','Exits a loop.'],['Control flow','continue','Skips to the next iteration.'],['Control flow','enumerate(items)','Provides indexes and items.'],['Control flow','zip(names, scores)','Pairs iterable values.'],['Functions','def greet(name):','Defines a function; add an indented body.'],['Functions','return result','Returns a value from a function.'],['Functions','lambda x: x * 2','Creates a small anonymous function.'],['Functions','*args','Collects extra positional arguments.'],['Functions','**kwargs','Collects extra keyword arguments.'],['Dictionaries','user = {"name": "Alex"}','Creates a dictionary.'],['Dictionaries','user["name"]','Gets a value by key.'],['Dictionaries','user.get("age", 0)','Gets a key or default value.'],['Dictionaries','user.keys()','Views dictionary keys.'],['Dictionaries','user.items()','Views key-value pairs.'],['Dictionaries','user.update({"age": 13})','Adds or updates entries.'],['Useful','import random','Imports the random module.'],['Useful','random.randint(1, 10)','Gets a random integer from 1 to 10.'],['Useful','import math','Imports math tools.'],['Useful','round(3.14159, 2)','Rounds to two decimal places.'],['Useful','sum(numbers)','Adds numeric values.'],['Useful','min(numbers) / max(numbers)','Gets the minimum or maximum.'],['Useful','any(flags) / all(flags)','Checks truth values in an iterable.'],['Useful','try: ... except ValueError:','Handles a specific error; use proper blocks.'],['Files','from pathlib import Path','Imports modern path tools.'],['Files','Path("notes.txt").exists()','Checks whether a path exists.'],['Files','Path("notes.txt").read_text()','Reads a text file.'],['Files','Path("notes.txt").write_text("Hi")','Writes text to a file.'],['Files','with open("notes.txt") as f:','Opens a file safely; add an indented body.']
+];
+$('#commandCount').textContent=commands.length+'+';
+function renderCommands(){const q=$('#commandSearch').value.toLowerCase().trim(),cat=$('#commandCategory').value;const found=commands.filter(c=>(cat==='All'||c[0]===cat)&&c.join(' ').toLowerCase().includes(q));$('#commandList').innerHTML=found.map(c=>`<div class="command"><span class="tag">${esc(c[0])}</span><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><code>${esc(c[1])}</code><button class="btn copyCommand" data-code="${esc(c[1])}">Copy</button></div><p>${esc(c[2])}</p></div>`).join('')||'<div class="card">No commands found.</div>';document.querySelectorAll('.copyCommand').forEach(b=>b.addEventListener('click',()=>copyText(b.dataset.code)))}
+$('#commandSearch').addEventListener('input',renderCommands);$('#commandCategory').addEventListener('change',renderCommands);renderCommands();
+
+const lessons=[['Set up Python','Understand where Python runs.','Basics'],['Variables and types','Store text, numbers, and booleans.','Basics'],['Strings','Format and manipulate text.','Basics'],['Lists and tuples','Work with ordered collections.','Collections'],['Dictionaries and sets','Store key-value pairs and unique values.','Collections'],['Conditions','Make decisions with if and else.','Logic'],['Loops','Repeat work with for and while.','Logic'],['Functions','Write reusable code.','Functions'],['Debugging','Understand errors and exceptions.','Tools'],['Files','Read and write text files.','Tools'],['HTML foundations','Build page structure.','Web'],['CSS and JavaScript','Style and add interaction to pages.','Web']];
+let done=new Set();try{done=new Set(JSON.parse(localStorage.getItem('pylaunch-lessons')||'[]'))}catch{}
+function renderLessons(){$('#lessonList').innerHTML=lessons.map((l,i)=>`<label class="lesson ${done.has(i)?'done':''}"><input type="checkbox" data-lesson="${i}" ${done.has(i)?'checked':''}><div><h3>${i+1}. ${esc(l[0])}</h3><p>${esc(l[1])}</p><span class="tag">${l[2]}</span></div></label>`).join('');document.querySelectorAll('[data-lesson]').forEach(c=>c.addEventListener('change',()=>{c.checked?done.add(+c.dataset.lesson):done.delete(+c.dataset.lesson);try{localStorage.setItem('pylaunch-lessons',JSON.stringify([...done]))}catch{}renderLessons()}));$('#progressText').textContent=`${done.size} of ${lessons.length} complete` ;$('#progressBar').style.width=done.size/lessons.length*100+'%'}
+renderLessons();
+
+document.querySelectorAll('.useSnippet').forEach(b=>b.addEventListener('click',()=>{const snippets={html:'<h1>My website</h1>\n<p>Hello, world!</p>',css:'body {\n  font-family: sans-serif;\n  color: white;\n  background: #101321;\n}',js:'document.querySelector("h1").textContent = "It works!";'};$('#codeInput').value=snippets[b.dataset.kind];$('#codeOutput').textContent='Snippet loaded. This editor demonstrates Python-like code; it does not execute HTML, CSS, or JavaScript.';$('#codeOutput').classList.remove('error');go('editor')}));
+$('#previewTitle').addEventListener('input',()=>$('#titlePreview').textContent=$('#previewTitle').value);
+$('#previewMessage').addEventListener('input',()=>$('#messagePreview').textContent=$('#previewMessage').value);
+document.querySelectorAll('.hintBtn').forEach(b=>b.addEventListener('click',()=>{const p=b.nextElementSibling;p.textContent=b.dataset.hint;p.classList.toggle('hidden');b.textContent=p.classList.contains('hidden')?'Show hint':'Hide hint'}));
+document.querySelectorAll('.solutionBtn').forEach(b=>b.addEventListener('click',()=>{$('#codeInput').value=b.dataset.code;$('#codeOutput').textContent='Example loaded. Press Run to try it.';go('editor')}));
+$('#whyBackend').addEventListener('click',()=>$('#backendExplanation').classList.toggle('hidden'));
+</script>
+</body>
+</html>
+
